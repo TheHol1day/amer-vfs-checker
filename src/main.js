@@ -55,19 +55,20 @@ const runPuppeteer = async (url) => {
       });
 
     await page.goto(url, { waitUntil: 'networkidle0' });
-
-    await page.type('#mat-input-0', "amereid922@gmail.com", { delay: 100 });
+    console.log("Reached login page");
+    await page.type('#mat-input-0', "amereid92@gmail.com", { delay: 100 });
     await page.type('#mat-input-1', "Kiss@939", { delay: 100 });
     const signInButtons = await page.$x('/html/body/app-root/div/app-login/section/div/div/mat-card/form/button')
     await signInButtons[0].click()
     await page.waitForNavigation({ waitUntil: 'networkidle0' });
-
+    console.log("Reached new booking page");
     const bookButtons = await page.$x('/html/body/app-root/div/app-dashboard/section[1]/div/div[2]/button')
     await sleep(5000);
     await bookButtons[0].click()
 
     // application center
     await sleep(3000);
+    console.log("Reached new appointment page");
     var chooseCenters = await page.waitForXPath('/html/body/app-root/div/app-eligibility-criteria/section/form/mat-card[1]/form/div[1]/mat-form-field');
     await chooseCenters.click();
 
@@ -100,7 +101,7 @@ const runPuppeteer = async (url) => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                text,
+                value,
                 chat_id : CHAT_ID,
                 parse_mode : 'markdown',
             }),
@@ -126,8 +127,8 @@ function rand(items) {
 }
 
 
-if (CHAT_ID && BOT_API) {
+// if (CHAT_ID && BOT_API) {
     runTask();
-} else {
-    console.log('Missing Telegram API keys!');
-}
+// } else {
+    // console.log('Missing Telegram API keys!');
+// }
