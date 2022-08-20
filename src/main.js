@@ -35,7 +35,7 @@ const runPuppeteer = async (url) => {
 
     console.log('opening headless browser');
     const browser = await puppeteer.launch({
-        headless: false,
+        headless: true,
         args: [`--window-size=${WIDTH},${HEIGHT}`,
             '--disable-dev-shm-usage',
             '--proxy-server='+conf.vpnServer],
