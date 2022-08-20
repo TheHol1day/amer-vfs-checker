@@ -35,7 +35,7 @@ const runPuppeteer = async (url) => {
 
     console.log('opening headless browser');
     const browser = await puppeteer.launch({
-        headless: true,
+        headless: false,
         args: [`--window-size=${WIDTH},${HEIGHT}`,
             '--disable-dev-shm-usage',
             '--proxy-server='+conf.vpnServer],
@@ -75,14 +75,6 @@ const runPuppeteer = async (url) => {
     var abuDhabi = await page.$x('//*[@id="mat-option-0"]');
     await abuDhabi[0].click();
     console.log("Selected centre");
-
-    await sleep(3000);
-    var chooseAppointment = await page.waitForXPath('/html/body/app-root/div/app-eligibility-criteria/section/form/mat-card[1]/form/div[2]/mat-form-field');
-    await chooseAppointment.click();
-
-    var shotStayVisa = await page.$x('//*[@id="mat-option-2"]');
-    await shotStayVisa[0].click();
-    console.log("Selected visa category");
 
     await sleep(3000);
     var chooseCategory = await page.waitForXPath('/html/body/app-root/div/app-eligibility-criteria/section/form/mat-card[1]/form/div[3]/mat-form-field');
@@ -130,8 +122,8 @@ function rand(items) {
 }
 
 
-// if (CHAT_ID && BOT_API) {
+if (CHAT_ID && BOT_API) {
     runTask();
-// } else {
-    // console.log('Missing Telegram API keys!');
-// }
+} else {
+    console.log('Missing Telegram API keys!');
+}
