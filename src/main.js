@@ -126,8 +126,8 @@ function rand(items) {
 }
 
 
-// if (CHAT_ID && BOT_API) {
+if (CHAT_ID && BOT_API) {
     runTask();
-// } else {
-    // console.log('Missing Telegram API keys!');
-// }
+} else {
+    console.log('Missing Telegram API keys!');
+}
