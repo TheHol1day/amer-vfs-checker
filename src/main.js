@@ -5,8 +5,8 @@ const jsdom = require('jsdom');
 const nodeFetch = require('node-fetch');
 
 
-const WIDTH = 1300;
-const HEIGHT = 800;
+const WIDTH = 1980;
+const HEIGHT = 1080;
 
 const houses = [];
 const { CHAT_ID, BOT_API } = process.env;
@@ -55,6 +55,15 @@ const runPuppeteer = async (url) => {
       });
 
     await page.goto(url, { waitUntil: 'networkidle0' });
+    const htmlString = await page.content();
+    if (htmlString.includes("exceeded maximum")) {
+        console.log("exceeded maximum tries");
+        console.log('closing browser');
+        await browser.close();
+        return;
+    }
+
+    await sleep(5000);
     console.log("Reached login page");
     await page.type('#mat-input-0', "amereid92@gmail.com", { delay: 100 });
     await page.type('#mat-input-1', "Kiss@939", { delay: 100 });
@@ -67,24 +76,30 @@ const runPuppeteer = async (url) => {
     await bookButtons[0].click()
 
     // application center
-    await sleep(3000);
+    await sleep(5000);
     console.log("Reached new appointment page");
+
+    // Select abu dhabi center
     var chooseCenters = await page.waitForXPath('/html/body/app-root/div/app-eligibility-criteria/section/form/mat-card[1]/form/div[1]/mat-form-field');
     await chooseCenters.click();
 
-    var abuDhabi = await page.$x('//*[@id="mat-option-0"]');
-    await abuDhabi[0].click();
+    var abuDhabi = await page.waitForXPath('//*[@id="mat-option-0"]');
+    await abuDhabi.click();
     console.log("Selected centre");
 
+    // Select short stay sub category
     await sleep(3000);
     var chooseCategory = await page.waitForXPath('/html/body/app-root/div/app-eligibility-criteria/section/form/mat-card[1]/form/div[3]/mat-form-field');
     await chooseCategory.click();
 
-    var subCategoryShortStay = await page.$x('//*[@id="mat-option-4"]');
-    await subCategoryShortStay[0].click();
+
+    var subCategoryShortStay = await page.waitForXPath('//*[@id="mat-option-4"]');
+    await subCategoryShortStay.click();
     console.log("Selected visa sub category");
 
-    await sleep(5000);
+    // Checking result
+
+    await sleep(3000);
 
     var result = await page.waitForXPath('/html/body/app-root/div/app-eligibility-criteria/section/form/mat-card[1]/form/div[4]/div');
     let value = await page.evaluate(el => el.textContent, result)
