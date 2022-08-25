@@ -109,6 +109,8 @@ const runPuppeteer = async (url) => {
         let potato2 = CHAT_ID;
         console.log(potato1);
         console.log(potato2);
+        let body = JSON.stringify({ value, chat_id : CHAT_ID, parse_mode : 'markdown',});
+        console.log(body);
         nodeFetch(`https://api.telegram.org/bot${BOT_API}/sendMessage`, {
             method: 'POST',
             headers: {
