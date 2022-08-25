@@ -105,6 +105,8 @@ const runPuppeteer = async (url) => {
     console.log(value);
     if (value != "No appointment slots are currently available. Please try another application centre if applicable") {
         console.log("sending telegram message");
+        console.log(BOT_API);
+        console.log(CHAT_ID);
         nodeFetch(`https://api.telegram.org/bot${BOT_API}/sendMessage`, {
             method: 'POST',
             headers: {
