@@ -102,7 +102,7 @@ const runPuppeteer = async (url) => {
 
     var result = await page.waitForXPath('/html/body/app-root/div/app-eligibility-criteria/section/form/mat-card[1]/form/div[4]/div');
     let text = String(await page.evaluate(el => el.textContent, result));
-    console.log(value);
+    console.log(text);
     if (text != "No appointment slots are currently available. Please try another application centre if applicable") {
         console.log("sending telegram message");
       nodeFetch(`https://api.telegram.org/bot${BOT_API}/sendMessage`, {
