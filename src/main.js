@@ -101,27 +101,21 @@ const runPuppeteer = async (url) => {
     await sleep(3000);
 
     var result = await page.waitForXPath('/html/body/app-root/div/app-eligibility-criteria/section/form/mat-card[1]/form/div[4]/div');
-    let value = String(await page.evaluate(el => el.textContent, result));
+    let text = String(await page.evaluate(el => el.textContent, result));
     console.log(value);
-    if (value != "No appointment slots are currently available. Please try another application centre if applicable") {
+    if (text != "No appointment slots are currently available. Please try another application centre if applicable") {
         console.log("sending telegram message");
-        let potato1 = BOT_API;
-        let potato2 = CHAT_ID;
-        console.log(potato1);
-        console.log(potato2);
-        let body = JSON.stringify({ value, chat_id : CHAT_ID, parse_mode : 'markdown',});
-        console.log(body);
-        nodeFetch(`https://api.telegram.org/bot${BOT_API}/sendMessage`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                value,
-                chat_id : CHAT_ID,
-                parse_mode : 'markdown',
-            }),
-        });
+      nodeFetch(`https://api.telegram.org/bot${BOT_API}/sendMessage`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          text,
+          chat_id : CHAT_ID,
+          parse_mode : 'markdown',
+        }),
+      });
     }
     
 // /html/body/app-root/div/app-eligibility-criteria/section/form/mat-card[1]/form/div[4]/div
