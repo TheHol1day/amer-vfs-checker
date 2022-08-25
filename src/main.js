@@ -13,7 +13,6 @@ const { CHAT_ID, BOT_API } = process.env;
 
 
 const runTask = async () => {
-    // await runPuppeteer("https://visa.vfsglobal.com/are/en/nld/login");
     await runPuppeteer("https://visa.vfsglobal.com/are/en/nld/login");
 };
 
@@ -105,6 +104,7 @@ const runPuppeteer = async (url) => {
     let value = await page.evaluate(el => el.textContent, result)
     console.log(value);
     if (value != "No appointment slots are currently available. Please try another application centre if applicable") {
+        console.log("sending telegram message");
         nodeFetch(`https://api.telegram.org/bot${BOT_API}/sendMessage`, {
             method: 'POST',
             headers: {
@@ -140,5 +140,5 @@ function rand(items) {
 if (CHAT_ID && BOT_API) {
     runTask();
 } else {
-    console.log('Missing Telegram API keys!');
+  console.log('Missing Telegram API keys!');
 }
