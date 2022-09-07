@@ -64,7 +64,7 @@ const runPuppeteer = async (url) => {
 
     await sleep(5000);
     console.log("Reached login page");
-    await page.type('#mat-input-0', "amereid92@gmail.com", { delay: 100 });
+    await page.type('#mat-input-0', "amereid922@gmail.com", { delay: 100 });
     await page.type('#mat-input-1', "Kiss@939", { delay: 100 });
     const signInButtons = await page.$x('/html/body/app-root/div/app-login/section/div/div/mat-card/form/button')
     await signInButtons[0].click()
@@ -103,8 +103,8 @@ const runPuppeteer = async (url) => {
     var result = await page.waitForXPath('/html/body/app-root/div/app-eligibility-criteria/section/form/mat-card[1]/form/div[4]/div');
     let text = String(await page.evaluate(el => el.textContent, result));
     console.log(text);
-    if (text != "No appointment slots are currently available. Please try another application centre if applicable") {
-        console.log("sending telegram message");
+    if (text.includes("No appointment slots") == false) {
+      console.log("sending telegram message");
       nodeFetch(`https://api.telegram.org/bot${BOT_API}/sendMessage`, {
         method: 'POST',
         headers: {
