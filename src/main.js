@@ -9,7 +9,7 @@ const WIDTH = 1980;
 const HEIGHT = 1080;
 
 const houses = [];
-const { CHAT_ID, BOT_API } = process.env;
+const { CHAT_ID, BOT_API, VPN_USER, VPN_PASSWORD, VFS_EMAIL, VFS_PASSWORD } = process.env;
 
 
 const runTask = async () => {
@@ -28,8 +28,8 @@ const runPuppeteer = async (url) => {
     let chosenserver = rand(vpn);
     console.log("chosen server: "+chosenserver);
     // VPN
-    conf.vpnUser   = conf.vpnUSer   || 'AFpn44fbK1haLmTdNQ4ScUPU';
-    conf.vpnPass   = conf.vpnPass   || 'zZkBjbQjXAsKpLiLH6LEqU9W';
+    conf.vpnUser   = conf.vpnUSer   || VPN_USER;
+    conf.vpnPass   = conf.vpnPass   || VPN_PASSWORD;
     conf.vpnServer = conf.vpnServer || chosenserver;
 
     console.log('opening headless browser');
@@ -64,8 +64,8 @@ const runPuppeteer = async (url) => {
 
     await sleep(5000);
     console.log("Reached login page");
-    await page.type('#mat-input-0', "amereid922@gmail.com", { delay: 100 });
-    await page.type('#mat-input-1', "Kiss@939", { delay: 100 });
+    await page.type('#mat-input-0', VFS_EMAIL, { delay: 100 });
+    await page.type('#mat-input-1', VFS_PASSWORD, { delay: 100 });
     const signInButtons = await page.$x('/html/body/app-root/div/app-login/section/div/div/mat-card/form/button')
     await signInButtons[0].click()
     await page.waitForNavigation({ waitUntil: 'networkidle0' });
