@@ -2,7 +2,7 @@ name: Run Task
 on:
   workflow_dispatch:
   schedule:
-    - cron: "*/15 * * * *"
+    - cron: "*/59 * * * *"
 
 jobs:
   build-and-deploy:
