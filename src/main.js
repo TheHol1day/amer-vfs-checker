@@ -27,6 +27,7 @@ const runPuppeteer = async (url) => {
     "https://nl820.nordvpn.com:89"];
     let chosenserver = rand(vpn);
     console.log("chosen server: "+chosenserver);
+    console.log("VPN_USER: "+VPN_USER);
     // VPN
     conf.vpnUser   = conf.vpnUSer   || VPN_USER;
     conf.vpnPass   = conf.vpnPass   || VPN_PASSWORD;
@@ -34,7 +35,7 @@ const runPuppeteer = async (url) => {
 
     console.log('opening headless browser');
     const browser = await puppeteer.launch({
-        headless: true,
+        headless: false,
         args: [`--window-size=${WIDTH},${HEIGHT}`,
             '--disable-dev-shm-usage',
             '--proxy-server='+conf.vpnServer],
@@ -137,8 +138,8 @@ function rand(items) {
 }
 
 
-if (CHAT_ID && BOT_API) {
+//if (CHAT_ID && BOT_API) {
     runTask();
-} else {
-  console.log('Missing Telegram API keys!');
-}
+//} else {
+//console.log('Missing Telegram API keys!');
+//}
