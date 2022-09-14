@@ -28,6 +28,7 @@ const runPuppeteer = async (url) => {
     let chosenserver = rand(vpn);
     console.log("chosen server: "+chosenserver);
     console.log("VPN_USER: "+VPN_USER);
+    console.log("CHAT_ID: "+CHAT_ID);
     // VPN
     conf.vpnUser   = conf.vpnUSer   || VPN_USER;
     conf.vpnPass   = conf.vpnPass   || VPN_PASSWORD;
@@ -138,8 +139,8 @@ function rand(items) {
 }
 
 
-//if (CHAT_ID && BOT_API) {
+if (CHAT_ID && BOT_API) {
     runTask();
-//} else {
-//console.log('Missing Telegram API keys!');
-//}
+} else {
+  console.log('Missing Telegram API keys!');
+}
