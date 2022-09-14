@@ -4,7 +4,6 @@ const puppeteer = require('puppeteer');
 const jsdom = require('jsdom');
 const nodeFetch = require('node-fetch');
 
-
 const WIDTH = 1980;
 const HEIGHT = 1080;
 
@@ -27,8 +26,6 @@ const runPuppeteer = async (url) => {
     "https://nl820.nordvpn.com:89"];
     let chosenserver = rand(vpn);
     console.log("chosen server: "+chosenserver);
-    console.log("VPN_USER: "+VPN_USER);
-    console.log("CHAT_ID: "+CHAT_ID);
     // VPN
     conf.vpnUser   = conf.vpnUSer   || VPN_USER;
     conf.vpnPass   = conf.vpnPass   || VPN_PASSWORD;
